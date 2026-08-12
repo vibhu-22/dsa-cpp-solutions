@@ -1,1 +1,27 @@
+/*
+Problem: Running Sum of 1D Array
+Platform: LeetCode
+Difficulty: Easy
+Link: https://leetcode.com/problems/running-sum-of-1d-array/
 
+Approach:
+Imagine adding the numbers one by one.
+We start from the second number.
+Add the number before it to the current number.
+Then keep doing the same thing until we reach the end.
+This gives us the running total at every position.
+
+Time Complexity: O(n)
+Space Complexity: O(1)
+*/
+
+class Solution {
+public:
+    vector<int> runningSum(vector<int>& nums) {
+        for(int i = 1; i < nums.size(); i++) {
+            nums[i] = nums[i] + nums[i - 1];
+        }
+
+        return nums;
+    }
+};
