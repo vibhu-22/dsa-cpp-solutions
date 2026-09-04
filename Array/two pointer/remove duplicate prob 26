@@ -1,1 +1,72 @@
 
+/*
+Problem: Remove Duplicates from Sorted Array
+Platform: LeetCode
+Difficulty: Easy
+Link: https://leetcode.com/problems/remove-duplicates-from-sorted-array/
+
+Approach:
+Use two pointers.
+
+Start one pointer from the beginning and another from the second position.
+
+The left pointer `i` keeps track of the position where
+the next unique element should be placed.
+
+The right pointer `j` checks every element in the array.
+
+If nums[j] is different from nums[i],
+it means we found a new unique element.
+
+Move i forward and copy nums[j] to nums[i].
+
+If nums[j] is equal to nums[i],
+it means the element is a duplicate,
+so we skip it.
+
+At the end, return i + 1.
+
+Mistake I Made:
+I thought I should return i because
+I was using 0-based indexing.
+
+But here, the question is asking for the
+NUMBER OF UNIQUE ELEMENTS, not an array index.
+
+Therefore, I must return i + 1.
+
+Important Tip:
+Always check whether the question is asking for
+an INDEX or a COUNT.
+
+In Two Sum II, we returned i + 1 because
+the question used 1-based indexing.
+
+But in Remove Duplicates, we return i + 1 because
+i is the index of the LAST UNIQUE ELEMENT,
+and we need the TOTAL NUMBER OF UNIQUE ELEMENTS.
+
+Time Complexity: O(n)
+Space Complexity: O(1)
+*/
+
+class Solution {
+public:
+int removeDuplicates(vector<int>& nums) {
+int n = nums.size();
+
+```
+    int i = 0;
+
+    for (int j = 1; j < n; j++) {
+        if (nums[j] != nums[i]) {
+            i++;
+            nums[i] = nums[j];
+        }
+    }
+
+    return i + 1;
+}
+```
+
+};
