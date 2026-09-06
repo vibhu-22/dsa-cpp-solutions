@@ -1,0 +1,77 @@
+/*
+Problem: Merge Sorted Array
+Platform: LeetCode
+Difficulty: Easy
+Link: https://leetcode.com/problems/merge-sorted-array/
+
+Approach:
+Use two pointers to compare the elements of both sorted arrays.
+
+The first pointer starts from nums1[0], and the second pointer
+starts from nums2[0].
+
+Compare both elements:
+- If nums1[i] is smaller, add it to the result array.
+- Otherwise, add nums2[j] to the result array.
+
+After one array is completely used, copy the remaining elements
+of the other array into the result.
+
+Finally, copy all elements from the result array back into nums1.
+
+Time Complexity: O(m + n)
+Space Complexity: O(m + n)
+
+Important Tip:
+The first m elements of nums1 are valid sorted elements.
+The remaining n elements are empty spaces and should not be
+included while comparing.
+
+Mistake I Made:
+I initially focused only on merging the elements, but I must
+remember that nums1 already contains extra spaces for nums2.
+
+Also, when comparing equal elements, using <= instead of <
+would take the element from nums1 first. Both approaches are
+correct because the final array only needs to be sorted.
+*/
+
+class Solution {
+public:
+    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+        vector<int> res(m + n);
+
+        int i = 0;
+        int j = 0;
+        int id = 0;
+
+        while (i < m && j < n) {
+            if (nums1[i] < nums2[j]) {
+                res[id] = nums1[i];
+                i++;
+            }
+            else {
+                res[id] = nums2[j];
+                j++;
+            }
+
+            id++;
+        }
+
+        while (i < m) {
+            res[id] = nums1[i];
+            i++;
+            id++;
+        }
+
+        while (j < n) {
+            res[id] = nums2[j];
+            j++;
+            id++;
+        }
+
+        for (int k = 0; k < m + n; k++) {
+            nums1[k] = res[k];
+        }
+    }
+};
