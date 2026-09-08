@@ -1,0 +1,77 @@
+/*
+Problem: Squares of a Sorted Array
+Platform: LeetCode
+Difficulty: Easy
+Link: https://leetcode.com/problems/squares-of-a-sorted-array/
+
+Approach:
+The array is sorted, but after squaring, the order may change.
+
+For example:
+[-4, -1, 0, 3, 10]
+Squares:
+[16, 1, 0, 9, 100]
+
+The largest square will always come from either:
+- The leftmost negative number, or
+- The rightmost positive number.
+
+Use two pointers:
+- a starts from the beginning.
+- b starts from the end.
+
+Compare the squares of nums[a] and nums[b].
+Place the larger square at the last empty position of ans.
+
+Then move the pointer whose square was selected.
+
+We fill the answer array from right to left because the largest
+squares must be placed first.
+
+Time Complexity: O(n)
+Space Complexity: O(n)
+
+Important Tip:
+When an array is sorted but squaring changes its order,
+compare the absolute values of both ends.
+
+Mistake I Made:
+I initially thought I should fill the answer array from left
+to right. But the largest square comes from either end of
+the sorted array.
+
+Therefore, I fill ans from the last index to the first index.
+
+Another Important Point:
+If the left square is larger, move a forward.
+Otherwise, move b backward.
+
+Pattern Recognition:
+Sorted array + compare both ends = Two Pointers
+*/
+ 
+class Solution {
+public:
+    vector<int> sortedSquares(vector<int>& nums) {
+        vector<int> ans(nums.size());
+
+        int a = 0;
+        int b = nums.size() - 1;
+
+        for (int i = nums.size() - 1; i >= 0; i--) {
+            int left = nums[a] * nums[a];
+            int right = nums[b] * nums[b];
+
+            if (right < left) {
+                ans[i] = left;
+                a++;
+            }
+            else {
+                ans[i] = right;
+                b--;
+            }
+        }
+
+        return ans;
+    }
+};
