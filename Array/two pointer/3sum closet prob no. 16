@@ -1,0 +1,104 @@
+```cpp
+/*
+Problem: 3Sum Closest
+Platform: LeetCode
+Difficulty: Medium
+Link: https://leetcode.com/problems/3sum-closest/
+
+Approach:
+First, sort the array.
+
+Use a for loop to fix one number, nums[i].
+Then use two pointers:
+- left = i + 1
+- right = n - 1
+
+Calculate the sum of these three numbers.
+
+If the current sum is closer to the target than our previous
+closest sum, update closest.
+
+Then:
+- If sum < target, move left forward because we need a bigger sum.
+- If sum > target, move right backward because we need a smaller sum.
+- If sum == target, return immediately because this is the exact answer.
+
+The for loop is used to choose the first number of the triplet.
+For every fixed nums[i], the two pointers find the best possible
+pair from the remaining part of the sorted array.
+
+Time Complexity: O(n^2)
+Space Complexity: O(1) extra space
+(ignoring the space used internally by sort)
+
+Important Tip:
+Whenever the array is sorted and we need to find a combination
+of numbers close to a target, think about Two Pointers.
+
+The key movement rule is:
+
+sum < target  -> left++
+sum > target  -> right--
+sum == target -> exact answer
+
+Mistake I Made:
+I need to carefully understand the role of the for loop.
+
+The for loop does NOT directly find the answer.
+It fixes the first element of the triplet.
+
+Example:
+i = 0  -> nums[i] is the first number
+i = 1  -> nums[i] is the first number
+i = 2  -> nums[i] is the first number
+...
+
+For every i, the left and right pointers search for the other
+two numbers.
+
+Important Learning:
+Sorting allows us to decide which pointer to move.
+
+If the sum is too small, moving left forward increases the sum.
+If the sum is too large, moving right backward decreases the sum.
+
+Pattern:
+Sort + Fix One Element + Two Pointers = 3Sum pattern
+*/
+
+class Solution {
+public:
+    int threeSumClosest(vector<int>& nums, int target) {
+        int n = nums.size();
+
+        sort(nums.begin(), nums.end());
+
+        int closest = nums[0] + nums[1] + nums[2];
+
+        for (int i = 0; i < n - 2; i++) {
+            int left = i + 1;
+            int right = n - 1;
+
+            while (left < right) {
+                int sum = nums[i] + nums[left] + nums[right];
+
+                if (abs(sum - target) < abs(closest - target)) {
+                    closest = sum;
+                }
+
+                if (sum < target) {
+                    left++;
+                }
+                else if (sum > target) {
+                    right--;
+                }
+                else {
+                    return sum;
+                }
+            }
+        }
+
+        return closest;
+    }
+};
+```
