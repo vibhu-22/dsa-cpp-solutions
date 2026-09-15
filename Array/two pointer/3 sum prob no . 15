@@ -1,0 +1,137 @@
+```cpp
+/*
+Problem: 3Sum
+Platform: LeetCode
+Difficulty: Medium
+Link: https://leetcode.com/problems/3sum/
+
+Approach:
+First, sort the array.
+
+Then use a for loop to fix the first number nums[i].
+For every nums[i], use two pointers:
+- left = i + 1
+- right = n - 1
+
+Calculate:
+sum = nums[i] + nums[left] + nums[right]
+
+If sum < 0:
+    Move left forward because we need a bigger sum.
+
+If sum > 0:
+    Move right backward because we need a smaller sum.
+
+If sum == 0:
+    We found a valid triplet.
+    Store it in the answer.
+    Then move both pointers.
+
+Duplicate Handling:
+There can be duplicate numbers, but the answer must contain
+unique triplets.
+
+For the first number:
+    if(i > 0 && nums[i] == nums[i - 1])
+        continue;
+
+This skips duplicate values of nums[i].
+
+After finding a valid triplet:
+    left++;
+    right--;
+
+Then skip duplicate values of left:
+    while(left < right && nums[left] == nums[left - 1])
+        left++;
+
+This prevents adding the same triplet multiple times.
+
+Time Complexity: O(n^2)
+Space Complexity: O(1) extra space
+(ignoring the output array and sorting implementation)
+
+Important Tip:
+3Sum is basically:
+
+Sort
+   ↓
+Fix one number
+   ↓
+Use Two Pointers for the other two numbers
+   ↓
+Skip duplicates
+
+Pattern:
+3Sum = Sorting + For Loop + Two Pointers + Duplicate Handling
+
+Mistake I Made:
+I initially forgot that the loop should stop at n - 2
+because we need three numbers:
+nums[i], nums[left], nums[right].
+
+Important:
+    i < n - 2
+
+Also, after finding a valid triplet, I must skip duplicates.
+Otherwise, the same triplet can appear multiple times.
+
+Key Learning:
+Whenever a problem asks for unique combinations,
+always think about how duplicates should be handled.
+
+Pointer Movement:
+sum < 0  -> left++
+sum > 0  -> right--
+sum == 0 -> store answer + move both pointers
+
+*/
+ 
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        vector<vector<int>> ans;
+        int n = nums.size();
+
+        sort(nums.begin(), nums.end());
+
+        for (int i = 0; i < n - 2; i++) {
+
+            if (i > 0 && nums[i] == nums[i - 1])
+                continue;
+
+            int left = i + 1;
+            int right = n - 1;
+
+            while (left < right) {
+
+                int sum = nums[i] + nums[left] + nums[right];
+
+                if (sum < 0) {
+                    left++;
+                }
+                else if (sum > 0) {
+                    right--;
+                }
+                else {
+                    ans.push_back({
+                        nums[i],
+                        nums[left],
+                        nums[right]
+                    });
+
+                    left++;
+                    right--;
+
+                    while (left < right &&
+                           nums[left] == nums[left - 1]) {
+                        left++;
+                    }
+                }
+            }
+        }
+
+        return ans;
+    }
+};
+```
