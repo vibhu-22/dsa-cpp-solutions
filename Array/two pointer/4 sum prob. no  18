@@ -1,0 +1,25 @@
+/*
+Problem: 4Sum
+Platform: LeetCode
+Difficulty: Medium
+Link: https://leetcode.com/problems/4sum/
+
+Approach:
+Sort the array → fix first 2 numbers using i and j →
+use two pointers for the remaining 2 numbers.
+
+If sum < target → left++
+If sum > target → right--
+If sum == target → store answer and move both pointers.
+
+Mistakes:
+1. Need to skip duplicates for i and j.
+2. Need to skip duplicates for left and right after finding an answer.
+3. Use long long for sum because int can overflow with large values.
+
+Important:
+4Sum = Fix 2 numbers + Two Pointers + Skip duplicates.
+
+Time: O(n^3)
+Space: O(1) extra
+*/
