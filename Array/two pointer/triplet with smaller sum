@@ -1,0 +1,65 @@
+/*
+https://www.geeksforgeeks.org/problems/count-triplets-with-sum-smaller-than-x5549/1
+
+Problem: Count Triplets with Sum Smaller Than X
+Platform: GeeksforGeeks
+Difficulty: Medium
+
+Approach:
+Sort the array → fix one element → use two pointers.
+
+If total >= sum → right--
+If total < sum → all elements from left to right-1
+with the current left form valid triplets.
+
+So add:
+count += right - left
+
+Mistake:
+I used arr[i-1] without checking i > 0.
+Need:
+if(i > 0 && arr[i] == arr[i-1]) ...
+
+Important:
+When total < target, don't just count one triplet.
+Because the array is sorted, all elements between left
+and right also make valid triplets.
+
+count += right - left
+
+Time: O(n^2)
+Space: O(1)
+*/
+
+class Solution {
+public:
+    int countTriplets(int sum, vector<int>& arr) {
+        int count = 0;
+        sort(arr.begin(), arr.end());
+
+        int n = arr.size();
+
+        for (int i = 0; i < n - 2; i++) {
+
+            if (i > 0 && arr[i] == arr[i - 1])
+                continue;
+
+            int left = i + 1;
+            int right = n - 1;
+
+            while (left < right) {
+                int total = arr[i] + arr[left] + arr[right];
+
+                if (total >= sum) {
+                    right--;
+                }
+                else {
+                    count += right - left;
+                    left++;
+                }
+            }
+        }
+
+        return count;
+    }
+};
