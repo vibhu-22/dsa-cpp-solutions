@@ -1,0 +1,29 @@
+/*
+Problem: Sort Colors
+Platform: LeetCode
+Difficulty: Medium
+Link: https://leetcode.com/problems/sort-colors/
+
+Approach:
+Use 3 pointers:
+low = 0, mid = 0, high = n-1
+
+0 → swap with low, low++, mid++
+1 → mid++
+2 → swap with high, high--
+
+Important:
+After swapping with high, DON'T increase mid.
+The new value at mid still needs to be checked.
+
+Mistake:
+The tricky part is the 2 case.
+After swap(nums[mid], nums[high]), only high--.
+mid stays because the swapped element is not checked yet.
+
+Pattern:
+0, 1, 2 → Dutch National Flag
+
+Time: O(n)
+Space: O(1)
+*/
