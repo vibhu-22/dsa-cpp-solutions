@@ -1,0 +1,32 @@
+/*
+https://www.geeksforgeeks.org/problems/max-sum-subarray-of-size-k5313/1
+
+
+
+
+Problem: Maximum Sum Subarray of Size K
+Platform: GeeksforGeeks
+Difficulty: Easy
+
+Approach:
+Use a fixed-size sliding window of size k.
+
+First calculate the sum of the first k elements.
+Then slide the window:
+remove the old left element → move i
+add the new right element → move j
+
+Update maximum sum after every window.
+
+Mistake:
+Don't recalculate the whole window every time.
+Just remove the element leaving the window and add the new element.
+
+Important:
+Fixed window of size k → Sliding Window.
+
+sum = sum - arr[i] + arr[j]
+
+Time: O(n)
+Space: O(1)
+*/
